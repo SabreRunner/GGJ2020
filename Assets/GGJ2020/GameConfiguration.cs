@@ -15,5 +15,7 @@ namespace GGJ2020
         public float initialFireRisk = 0.1f;
         public float fireRiskIncrease = 0.1f;
         public float fireRiskTimeStepInSeconds = 5f;
+
+        public float holdTimeStepInSeconds = 0.5f;
     }
 }

@@ -16,23 +16,23 @@ namespace GGJ2020
         public enum MouseClickMode { Grab, Release }
         public MouseClickMode mouseClickMode;
         public ContinentBlockController.ResourceType grabbedResource;
-        
+        private bool canClick = true;
+
         public void MouseClickRaycast()
         {
             Ray screenPointToRay = this.GetMainCamera().ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(screenPointToRay, out RaycastHit hit, 100f))
+            
+            if (this.canClick && Physics.Raycast(screenPointToRay, out RaycastHit hit, 100f))
             {
                 ContinentBlockController continent = hit.transform.GetComponent<ContinentBlockController>();
                 if (continent == null)
                 { return; }
-            
+
                 if (this.mouseClickMode == MouseClickMode.Grab)
                 {
                     continent.ResourceGrabbed();
                     this.grabbedResource = continent.Resource;
                     this.resourceGrabbed?.Raise((int)this.grabbedResource);
-                    this.mouseClickMode = MouseClickMode.Release;
                     // this.Temp("MouseClickRaycast", "Grabbed " + this.grabbedResource);
                 } else if (this.mouseClickMode == MouseClickMode.Release)
                 {
@@ -42,15 +42,27 @@ namespace GGJ2020
                     this.resourceDrop?.Raise(drop);
                     continent.ResourceDropped(drop);
                     this.grabbedResource = ContinentBlockController.ResourceType.None;
-                    this.mouseClickMode = MouseClickMode.Grab;
                 }
+
+                this.canClick = false;
+                this.ActionInSeconds(()=>this.canClick = true, GameManager.Instance.gameConfiguration.holdTimeStepInSeconds);
             }
         }
 
         public void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(0))
             { this.MouseClickRaycast(); }
+            
+            if (Input.GetMouseButtonUp(0))
+            {
+                switch (this.mouseClickMode)
+                {
+                    case MouseClickMode.Grab: this.mouseClickMode = MouseClickMode.Release; break;
+                    case MouseClickMode.Release: this.mouseClickMode = MouseClickMode.Grab; break;
+                    default: throw new ArgumentOutOfRangeException();
+                }
+            }
         }
 
         private void Awake()

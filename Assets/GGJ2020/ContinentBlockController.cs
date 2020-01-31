@@ -19,6 +19,7 @@
         [SerializeField] private StatusType status;
         public StatusType Status => this.status;
         public float fireRisk;
+        private Coroutine fireRiskCoroutine;
         [SerializeField] private SpecificInstantiator[] objectInstantiators;
         private List<SpecificInstantiator> TreeInstantiators
         {
@@ -40,6 +41,14 @@
             }
         }
 
+        public void CreateRandomTree()
+        {
+            List<SpecificInstantiator> treeInstantiators = this.TreeInstantiators;
+            if (treeInstantiators.Count == 0)
+            { return; }
+            treeInstantiators[Random.Range(0, treeInstantiators.Count - 1)].Instantiate(GameConfiguration.SpawnType.Tree);
+        }
+
         public void ResourceGrabbed()
         {
             this.Temp("ResourceGrabbed", "Grabbed " + this.Resource);
@@ -50,10 +59,11 @@
             this.Temp("ResourceDropped", "Dropped: " + resourceDrop);
             if (resourceDrop.targetBlock != this)
             { return; }
-
-
+            
+            if (this.resource != ResourceType.Water && resourceDrop.resource == ResourceType.Trees)
+            { this.CreateRandomTree(); }
         }
-
+        
         public void CreateRandomFire()
         {
             List<SpecificInstantiator> fireInstantiators = this.FireInstantiators;
@@ -77,13 +87,16 @@
         private void StartFirePotential()
         {
             this.fireRisk = GameManager.Instance.gameConfiguration.initialFireRisk;
-            this.StartCoroutine(this.FireCoroutine());
+            this.fireRiskCoroutine = this.StartCoroutine(this.FireCoroutine());
         }
 
         private void Start()
         {
-            this.fireWaitForSeconds = new WaitForSeconds(GameManager.Instance.gameConfiguration.fireRiskTimeStepInSeconds);
-            this.StartFirePotential();
+            if (this.resource == ResourceType.Trees)
+            {
+                this.fireWaitForSeconds = new WaitForSeconds(GameManager.Instance.gameConfiguration.fireRiskTimeStepInSeconds);
+                this.StartFirePotential();
+            }
         }
 
         private void OnValidate()
