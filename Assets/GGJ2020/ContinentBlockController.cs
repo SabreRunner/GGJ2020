@@ -99,7 +99,7 @@
             }
         }
 
-        private void OnValidate()
+        private void Awake()
         {
             this.objectInstantiators = this.GetComponentsInChildren<SpecificInstantiator>();
         }
