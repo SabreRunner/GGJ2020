@@ -10,6 +10,10 @@ namespace GGJ2020.Events
         {
             public ContinentBlockController.ResourceType resource;
             public ContinentBlockController targetBlock;
+            public Vector3 dropPoint;
+
+            public override string ToString()
+                => "ResourceDrop\n Resource: " + this.resource + "; Target: " + this.targetBlock + "; Point: " + this.dropPoint.StringRepresentation();
         }
 
         public ResourceDrop resourceDrop;
