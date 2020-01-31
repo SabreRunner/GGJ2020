@@ -9,18 +9,14 @@ namespace GGJ2020
 
     public class GameManager : SingletonBehaviour<GameManager>
     {
+        public GameConfiguration gameConfiguration;
         [SerializeField] private GameEventInt resourceGrabbed;
         [SerializeField] private GameEventResourceDrop resourceDrop;
-        [SerializeField] private GameObject firePrefab;
-        [SerializeField] private GameObject[] treePrefabs;
 
         public enum MouseClickMode { Grab, Release }
         public MouseClickMode mouseClickMode;
         public ContinentBlockController.ResourceType grabbedResource;
-
-        public static GameObject FirePrefab => Instance.firePrefab;
-        public static GameObject TreePrefab => Instance.treePrefabs[Random.Range(0, Instance.treePrefabs.Length - 1)];
-
+        
         public void MouseClickRaycast()
         {
             Ray screenPointToRay = this.GetMainCamera().ScreenPointToRay(Input.mousePosition);

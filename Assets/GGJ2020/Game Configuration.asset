@@ -13,3 +13,10 @@ MonoBehaviour:
   m_Name: Game Configuration
   m_EditorClassIdentifier: 
   sphereDragMultiplier: 0.01
+  firePrefab: {fileID: 1000011432508632, guid: 54b675d5f2989b94e99fef50f523abc0, type: 3}
+  treePrefabs:
+  - {fileID: 5008456417781315624, guid: 7d1ac0ab951c4b34f9b103036e52fe1e, type: 3}
+  - {fileID: 5008456417781315624, guid: bf222365aba0b59478d5f4c7211107f1, type: 3}
+  initialFireRisk: 0.1
+  fireRiskIncrease: 0.1
+  fireRiskTimeStepInSeconds: 5
