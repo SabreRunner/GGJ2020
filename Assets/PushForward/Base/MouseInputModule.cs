@@ -9,6 +9,8 @@ namespace PushForward.Base
 		#region fields
 		[Range(10f, 1000f)] [SerializeField] private float swipeThreshold;
 		[SerializeField] private Vector2Event swipeEvent;
+		[SerializeField] private FloatEvent swipeHorizontal;
+		[SerializeField] private FloatEvent swipeVertical;
 
 		private Vector3 mouseDragStartPosition = -Vector2.one;
 		#endregion // fields
@@ -72,7 +74,11 @@ namespace PushForward.Base
 				this.Temp("CheckForMouseInput", "Drag: " + drag.magnitude);
 
 				if (drag.magnitude > this.swipeThreshold)
-				{ this.swipeEvent.Invoke(drag); }
+				{
+					this.swipeEvent?.Invoke(drag);
+					this.swipeHorizontal?.Invoke(drag.x);
+					this.swipeVertical?.Invoke(drag.y);
+				}
 			}
 		}
 
