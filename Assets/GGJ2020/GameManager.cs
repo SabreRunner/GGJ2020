@@ -9,10 +9,11 @@ namespace GGJ2020
     {
         [SerializeField] GameEventInt resourceGrabbed;
         [SerializeField] GameEventResourceDrop resourceDrop;
-        
-        private enum MouseClickMode { Grab, Release }
-        private MouseClickMode mouseClickMode;
-        private ContinentBlockController.ResourceType grabbedResource;
+
+        public enum MouseClickMode { Grab, Release }
+
+        public MouseClickMode mouseClickMode;
+        public ContinentBlockController.ResourceType grabbedResource;
         
         public void MouseClickRaycast()
         {
@@ -29,8 +30,10 @@ namespace GGJ2020
                     this.grabbedResource = continent.Resource;
                     this.resourceGrabbed?.Raise((int)this.grabbedResource);
                     this.mouseClickMode = MouseClickMode.Release;
+                    this.Temp("MouseClickRaycast", "Grabbed " + this.grabbedResource);
                 } else if (this.mouseClickMode == MouseClickMode.Release)
                 {
+                    this.Temp("MouseClickRaycast", "Dropped " + this.grabbedResource);
                     this.resourceDrop?.Raise(new GameEventResourceDrop.ResourceDrop { resource = this.grabbedResource, targetBlock = continent });
                     this.grabbedResource = ContinentBlockController.ResourceType.None;
                     this.mouseClickMode = MouseClickMode.Grab;
