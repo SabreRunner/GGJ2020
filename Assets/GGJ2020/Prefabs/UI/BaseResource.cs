@@ -14,10 +14,7 @@ namespace GGJ2020
 
         public void UpdateSelected(GameEventResourceDrop.ResourceDrop resourceDrop)
         {
-            this.Temp("UpdateSelected", "Tree");
             image = GetComponent<Image>();
-            this.Temp("UpdateSelected", "Tree alpha " + image.color.a);
-            this.Temp("UpdateSelected", "Tree diff " + (resourceDrop.resource == TheType));
             image.color = new Color(1, 1, 1, (resourceDrop.resource == TheType) ? 1 : 0.5f);
 
         }
