@@ -15,15 +15,20 @@ namespace GGJ2020
 
         public void Toggle()
         {
-            IsPlaying = !IsPlaying;
-            image.sprite = IsPlaying ? PauseImage : PlayImage;
+            this.SetIsPlaying(!IsPlaying);
         }
 
         // Update is called once per frame
         void Start()
         {
             image = GetComponent<Image>();
+            this.SetIsPlaying(IsPlaying);
+        }
+        void SetIsPlaying(bool isPlaying)
+        {
+            IsPlaying = isPlaying;
             image.sprite = IsPlaying ? PauseImage : PlayImage;
+            Time.timeScale = IsPlaying ? 1 : 0;
         }
     }
 }
