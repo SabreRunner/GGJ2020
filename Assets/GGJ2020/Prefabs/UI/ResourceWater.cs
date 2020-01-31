@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GGJ2020
 {
-    public class ResourceTree : BaseResource
+    public class ResourceWater : BaseResource
     {
 
     }
