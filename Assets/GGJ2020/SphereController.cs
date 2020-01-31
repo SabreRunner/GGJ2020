@@ -2,8 +2,6 @@
 
 namespace GGJ2020
 {
-    using UnityEngine.EventSystems;
-
     public class SphereController : BaseMonoBehaviour
     {
         [SerializeField] private GameConfiguration gameConfiguration;
@@ -13,7 +11,7 @@ namespace GGJ2020
 
         private void CheckDrag()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(1))
             {
                 this.previousDragPosition = Input.mousePosition;
                 this.dragging = true;
@@ -25,7 +23,7 @@ namespace GGJ2020
                 this.previousDragPosition = Input.mousePosition;
             }
 
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(1))
             { this.dragging = false; }
         }
 
