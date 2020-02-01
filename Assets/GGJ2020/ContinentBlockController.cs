@@ -3,6 +3,7 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using PushForward;
     using PushForward.ExtensionMethods;
     using Random = UnityEngine.Random;
@@ -21,33 +22,67 @@
         public float health;
         public float fireRisk;
         private Coroutine fireRiskCoroutine;
+        [SerializeField] private GameEventHealth healthEvent;
         [SerializeField] private SpecificInstantiator[] objectInstantiators;
-        private List<SpecificInstantiator> TreeInstantiators
+        private List<SpecificInstantiator> InstantiatorsWithFire
         {
             get
             {
                 return new List<SpecificInstantiator>(this.objectInstantiators)
-                    .FindAll(instantiator => instantiator.spawnType == GameConfiguration.SpawnType.None
-                                             || instantiator.spawnType == GameConfiguration.SpawnType.Fire);
+                    .FindAll(instantiator => instantiator.spawnType == GameConfiguration.SpawnType.Fire);
             }
         }
 
-        private List<SpecificInstantiator> FireInstantiators
+        private List<SpecificInstantiator> InstantiatorsWithTrees
         {
             get
             {
                 return new List<SpecificInstantiator>(this.objectInstantiators)
-                    .FindAll(instantiator => instantiator.spawnType == GameConfiguration.SpawnType.None
-                                             || instantiator.spawnType == GameConfiguration.SpawnType.Tree);
+                    .FindAll(instantiator => instantiator.spawnType == GameConfiguration.SpawnType.Tree);
+            }
+        }
+        
+        private List<SpecificInstantiator> InstantiatorsWithNone
+        {
+            get
+            {
+                return new List<SpecificInstantiator>(this.objectInstantiators)
+                    .FindAll(instantiator => instantiator.spawnType == GameConfiguration.SpawnType.None);
+            }
+        }
+        
+        private List<SpecificInstantiator> InstantiatorsForFire
+        {
+            get
+            {
+                List<SpecificInstantiator> list = this.InstantiatorsWithNone;
+                list.AddRange(this.InstantiatorsWithTrees);
+                return list;
             }
         }
 
-        public void CreateRandomTree()
+        public void UpdateHealth()
         {
-            List<SpecificInstantiator> treeInstantiators = this.TreeInstantiators;
-            if (treeInstantiators.Count == 0)
+            this.health = this.InstantiatorsWithTrees.Count / (float)this.objectInstantiators.Length;
+            
+            this.healthEvent?.Raise(new GameEventHealth.Health { continent = this, health = this.health});
+        }
+        
+        public bool CreateRandomTree()
+        {
+            List<SpecificInstantiator> instantiators = this.InstantiatorsWithNone;
+            if (instantiators.Count == 0)
+            { return true; }
+            instantiators[Random.Range(0, instantiators.Count - 1)].Instantiate(GameConfiguration.SpawnType.Tree);
+            this.UpdateHealth();
+            return false;
+        }
+
+        public void CreateTrees()
+        {
+            if (this.CreateRandomTree())
             { return; }
-            treeInstantiators[Random.Range(0, treeInstantiators.Count - 1)].Instantiate(GameConfiguration.SpawnType.Tree);
+            this.ActionInSeconds(this.CreateTrees, 0.1f);
         }
 
         public void ResourceGrabbed()
@@ -63,9 +98,9 @@
 
             if (resourceDrop.resource == ResourceType.Trees)
             {
-                this.CreateRandomTree();
+                this.CreateTrees();
 
-                this.health = (this.health + GameManager.Instance.gameConfiguration.healthIncreasePerStep).Clamp01();
+                this.health = 1f;
 
                 if (this.fireRiskCoroutine == null)
                 { this.StartFirePotential(); }
@@ -73,20 +108,24 @@
 
             if (resourceDrop.resource == ResourceType.Water)
             {
-                this.StopCoroutine(this.fireRiskCoroutine);
+                if (this.fireRiskCoroutine != null)
+                { this.StopCoroutine(this.fireRiskCoroutine); }
+
+                this.InstantiatorsWithFire.DoForEach(inst => inst.Instantiate(GameConfiguration.SpawnType.None));
+                this.UpdateHealth();
             }
         }
 
         public void CreateRandomFire()
         {
-            List<SpecificInstantiator> fireInstantiators = this.FireInstantiators;
+            List<SpecificInstantiator> fireInstantiators = this.InstantiatorsForFire;
             fireInstantiators[Random.Range(0, fireInstantiators.Count - 1)].Instantiate(GameConfiguration.SpawnType.Fire);
         }
 
         private WaitForSeconds fireWaitForSeconds;
         private IEnumerator FireCoroutine()
         {
-            while (this.FireInstantiators.Count > 0)
+            while (this.InstantiatorsForFire.Count > 0)
             {
                 float roll = Random.Range(0f, 1f);
                 // this.Temp("FireCoroutine", "Rolled: " + roll);

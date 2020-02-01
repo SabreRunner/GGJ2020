@@ -72,35 +72,38 @@ namespace GGJ2020
         private double firstClickFrame = double.MinValue;
         public void Update()
         {
-            if (!IsPaused) {
-            if (Input.GetMouseButtonDown(0))
+            if (!IsPaused)
             {
-                if (this.CurrentTimeInMilliseconds < this.firstClickFrame + this.gameConfiguration.doubleClickWindowInMilliseconds)
+                if (Input.GetMouseButtonDown(0))
                 {
-                    this.Release(this.Raycast());
-                    this.firstClickFrame = double.MinValue;
+                    if (this.CurrentTimeInMilliseconds <
+                        this.firstClickFrame + this.gameConfiguration.doubleClickWindowInMilliseconds)
+                    {
+                        this.Release(this.Raycast());
+                        this.firstClickFrame = double.MinValue;
+                    }
+                    else
+                    {
+                        this.firstClickFrame = this.CurrentTimeInMilliseconds;
+                        this.ActionInSeconds(() => this.firstClickFrame = double.MinValue,
+                                             (float)this.gameConfiguration.doubleClickWindowInMilliseconds / 1000);
+                    }
                 }
-                else
+
+                if (Input.GetMouseButton(0) && this.firstClickFrame < 0)
                 {
-                    this.firstClickFrame = this.CurrentTimeInMilliseconds;
-                    this.ActionInSeconds(()=>this.firstClickFrame = double.MinValue,
-                                         (float)this.gameConfiguration.doubleClickWindowInMilliseconds / 1000);
+                    if (this.grabStarted < 0)
+                    { this.StartGrab(this.Raycast()); }
+                    else { this.Grabbing(this.Raycast()); }
                 }
-            }
 
-            if (Input.GetMouseButton(0) && this.firstClickFrame < 0)
-            {
-                if (this.grabStarted < 0)
-                { this.StartGrab(this.Raycast()); }
-                else { this.Grabbing(this.Raycast()); }
-            }
-
-            if (Input.GetMouseButtonUp(0))
-            {
-                this.grabStarted = double.MinValue;
-                if (this.CurrentTimeInMilliseconds > this.firstClickFrame + this.gameConfiguration.doubleClickWindowInMilliseconds)
-                { this.firstClickFrame = double.MinValue; }
-            }
+                if (Input.GetMouseButtonUp(0))
+                {
+                    this.grabStarted = double.MinValue;
+                    if (this.CurrentTimeInMilliseconds >
+                        this.firstClickFrame + this.gameConfiguration.doubleClickWindowInMilliseconds)
+                    { this.firstClickFrame = double.MinValue; }
+                }
             }
         }
 
@@ -112,14 +115,14 @@ namespace GGJ2020
         // TODO: Make this method static.
         public void Pause()
         {
-            isPaused = true; // TODO: Create an event for pausing the game.
+            this.isPaused = true; // TODO: Create an event for pausing the game.
             Time.timeScale = 0;
         }
 
         // TODO: Make this method static.
         public void Resume()
         {
-            isPaused = false; // TODO: Create an event for resuming the game.
+            this.isPaused = false; // TODO: Create an event for resuming the game.
             Time.timeScale = 1;
         }
 
