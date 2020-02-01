@@ -74,7 +74,7 @@ namespace GGJ2020
                 && this.CurrentTimeInMilliseconds <= this.grabStarted + this.gameConfiguration.grabTimeInSeconds * 1000)
             {
                 this.grabProgression = (this.CurrentTimeInMilliseconds - this.grabStarted) / 1000 / this.gameConfiguration.grabTimeInSeconds;
-                if (this.grabProgression.Between(0.5f, 0.52f) || this.grabProgression.Between(0.98f, 1f))
+                if (this.grabProgression.Between(0.98f, 1f))
                 { this.Temp("Grabbing", "Progression: " + this.grabProgression); }
                 this.grabbingProgressionEvent.Raise(this.grabProgression);
             }
