@@ -93,6 +93,7 @@ namespace GGJ2020
             isPaused = false; // TODO: Create an event for resuming the game.
             Time.timeScale = 1;
         }
+
         public static void Quit()
         {
 #if UNITY_EDITOR

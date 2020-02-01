@@ -20,3 +20,4 @@ MonoBehaviour:
   initialFireRisk: 0.1
   fireRiskIncrease: 0.1
   fireRiskTimeStepInSeconds: 5
+  holdTimeStepInSeconds: 0.35
