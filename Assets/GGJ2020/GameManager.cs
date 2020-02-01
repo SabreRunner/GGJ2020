@@ -36,9 +36,10 @@ namespace GGJ2020
 
         private void Release(ContinentBlockController targetContinent)
         {
-            // Return if there is not grabbed resource or if the target continent has a different resource.
+            // Return if there is not grabbed resource or if the target continent expects a different resource.
             if (this.lastGrabbedContinent == null
-                || (targetContinent.Resource != ContinentBlockController.ResourceType.None && this.grabbedResource != targetContinent.Resource))
+                || this.grabbedResource == ContinentBlockController.ResourceType.None
+                || (targetContinent.Resource == ContinentBlockController.ResourceType.Water && this.grabbedResource != ContinentBlockController.ResourceType.Water))
             { return; }
 
             this.Temp("Release", "On " + targetContinent.name);
