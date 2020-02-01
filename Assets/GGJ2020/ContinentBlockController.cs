@@ -15,6 +15,7 @@
         public enum ResourceType { None, Trees, Water }
         public enum StatusType { None, Fire, Flood }
 
+        [SerializeField] private Material meshMaterial;
         [SerializeField] private ResourceType resource;
         public ResourceType Resource => this.resource;
         public float health;
@@ -39,7 +40,7 @@
                     .FindAll(instantiator => instantiator.spawnType == GameConfiguration.SpawnType.Tree);
             }
         }
-        
+
         private List<SpecificInstantiator> InstantiatorsWithNone
         {
             get
@@ -48,7 +49,7 @@
                     .FindAll(instantiator => instantiator.spawnType == GameConfiguration.SpawnType.None);
             }
         }
-        
+
         private List<SpecificInstantiator> InstantiatorsForFire
         {
             get
@@ -62,10 +63,11 @@
         public void UpdateHealth()
         {
             this.health = this.InstantiatorsWithTrees.Count / (float)this.objectInstantiators.Length;
-            
+
+            this.meshMaterial.SetFloat("Vector1_DDF08DA6", this.health);
             this.healthEvent?.Raise(new GameEventHealth.HealthStruct { continent = this, health = this.health});
         }
-        
+
         public bool CreateRandomTree()
         {
             List<SpecificInstantiator> instantiators = this.InstantiatorsWithNone;
@@ -156,6 +158,7 @@
         private void Awake()
         {
             this.objectInstantiators = this.GetComponentsInChildren<SpecificInstantiator>();
+            this.meshMaterial = this.GetComponent<Renderer>().material;
         }
     }
 }
