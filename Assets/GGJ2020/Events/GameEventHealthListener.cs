@@ -5,7 +5,7 @@ namespace GGJ2020.Events
     using UnityEngine;
     using UnityEngine.Events;
 
-    [Serializable] public class HealthEvent : UnityEvent<GameEventHealth.Health> {}
+    [Serializable] public class HealthEvent : UnityEvent<GameEventHealth.HealthStruct> {}
     public class GameEventHealthListener : GameEventListenerBase
     {
         [SerializeField] private GameEventHealth gameEventHealth;
@@ -13,7 +13,7 @@ namespace GGJ2020.Events
         [SerializeField] private HealthEvent healthResponse;
         protected override void OnEventRaised()
         {
-            this.healthResponse?.Invoke(this.gameEventHealth.health);
+            this.healthResponse?.Invoke(this.gameEventHealth.healthStruct);
         }
     }
 }

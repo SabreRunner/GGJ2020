@@ -17,8 +17,6 @@
 
         [SerializeField] private ResourceType resource;
         public ResourceType Resource => this.resource;
-        [SerializeField] private StatusType status;
-        public StatusType Status => this.status;
         public float health;
         public float fireRisk;
         private Coroutine fireRiskCoroutine;
@@ -65,7 +63,7 @@
         {
             this.health = this.InstantiatorsWithTrees.Count / (float)this.objectInstantiators.Length;
             
-            this.healthEvent?.Raise(new GameEventHealth.Health { continent = this, health = this.health});
+            this.healthEvent?.Raise(new GameEventHealth.HealthStruct { continent = this, health = this.health});
         }
         
         public bool CreateRandomTree()
@@ -85,14 +83,14 @@
             this.ActionInSeconds(this.CreateTrees, 0.1f);
         }
 
-        public void ResourceGrabbed()
-        {
-            this.Temp("ResourceGrabbed", "Grabbed " + this.Resource);
-        }
+        // public void ResourceGrabbed()
+        // {
+            // this.Temp("ResourceGrabbed", "Grabbed " + this.Resource);
+        // }
 
         public void ResourceDropped(GameEventResourceDrop.ResourceDrop resourceDrop)
         {
-            this.Temp("ResourceDropped", "Dropped: " + resourceDrop);
+            // this.Temp("ResourceDropped", "Dropped: " + resourceDrop);
             if (resourceDrop.targetBlock != this)
             { return; }
 
@@ -100,7 +98,8 @@
             {
                 this.CreateTrees();
 
-                this.health = 1f;
+                this.resource = ResourceType.Trees;
+                this.UpdateHealth();
 
                 if (this.fireRiskCoroutine == null)
                 { this.StartFirePotential(); }
@@ -149,6 +148,9 @@
                 this.fireWaitForSeconds = new WaitForSeconds(GameManager.Instance.gameConfiguration.fireRiskTimeStepInSeconds);
                 this.StartFirePotential();
             }
+
+            this.objectInstantiators.DoForEach(inst => inst.SetPrefabAndInstantiate());
+            this.UpdateHealth();
         }
 
         private void Awake()
