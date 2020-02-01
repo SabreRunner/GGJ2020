@@ -87,13 +87,11 @@ namespace GGJ2020
                 if (this.CurrentTimeInMilliseconds <
                     this.firstClickFrame + this.gameConfiguration.doubleClickWindowInMilliseconds)
                 {
-                    this.Temp("CheckMouseInput", "Second click of double click." + " (Frame: " + Time.frameCount + ")");
                     this.Release(this.Raycast());
                     return;
                 }
                 else
                 {
-                    this.Temp("CheckMouseInput", "First click of double click." + " (Frame: " + Time.frameCount + ")");
                     this.firstClickFrame = this.CurrentTimeInMilliseconds;
                     this.ActionInSeconds(() => this.firstClickFrame = double.MinValue,
                                          (float)this.gameConfiguration.doubleClickWindowInMilliseconds / 1000);
@@ -102,7 +100,6 @@ namespace GGJ2020
 
             if (Input.GetMouseButton(0) && this.firstClickFrame < 0)
             {
-                this.Temp("CheckMouseInput", "Grabbing." + " (Frame: " + Time.frameCount + ")");
                 if (this.grabStarted < 0)
                 { this.StartGrab(this.Raycast()); }
                 else { this.Grabbing(this.Raycast()); }
@@ -110,7 +107,6 @@ namespace GGJ2020
 
             if (Input.GetMouseButtonUp(0))
             {
-                this.Temp("CheckMouseInput", "Release." + " (Frame: " + Time.frameCount + ")");
                 this.grabStarted = double.MinValue;
                 if (this.CurrentTimeInMilliseconds > this.firstClickFrame + this.gameConfiguration.doubleClickWindowInMilliseconds
                     || this.lastGrabbedContinent == null)
