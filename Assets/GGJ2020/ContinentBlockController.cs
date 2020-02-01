@@ -1,5 +1,6 @@
 ﻿namespace GGJ2020
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using PushForward.ExtensionMethods;
@@ -136,14 +137,14 @@
 
         private void Start()
         {
+            this.objectInstantiators.DoForEach(inst => inst.SetPrefabAndInstantiate());
+            this.UpdateHealth();
+            
             if (this.resource == ResourceType.Trees)
             {
                 this.fireWaitForSeconds = new WaitForSeconds(GameManager.Instance.gameConfiguration.fireRiskTimeStepInSeconds);
                 this.StartFirePotential();
             }
-
-            this.objectInstantiators.DoForEach(inst => inst.SetPrefabAndInstantiate());
-            this.UpdateHealth();
         }
 
         private void Awake()
