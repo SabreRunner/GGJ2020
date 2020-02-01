@@ -17,9 +17,16 @@ namespace GGJ2020
         public MouseClickMode mouseClickMode;
         public ContinentBlockController.ResourceType grabbedResource;
         private bool canClick = true;
+        private bool isPaused = false;
+        public bool IsPaused
+        {
+            get { return isPaused; }
+        }
 
         public void MouseClickRaycast()
         {
+            if (IsPaused)
+            { return; }
             Ray screenPointToRay = this.GetMainCamera().ScreenPointToRay(Input.mousePosition);
             
             if (this.canClick && Physics.Raycast(screenPointToRay, out RaycastHit hit, 100f))
@@ -51,16 +58,19 @@ namespace GGJ2020
 
         public void Update()
         {
-            if (Input.GetMouseButton(0))
-            { this.MouseClickRaycast(); }
-            
-            if (Input.GetMouseButtonUp(0))
+            if (!IsPaused)
             {
-                switch (this.mouseClickMode)
+                if (Input.GetMouseButton(0))
+                { this.MouseClickRaycast(); }
+
+                if (Input.GetMouseButtonUp(0))
                 {
-                    case MouseClickMode.Grab: this.mouseClickMode = MouseClickMode.Release; break;
-                    case MouseClickMode.Release: this.mouseClickMode = MouseClickMode.Grab; break;
-                    default: throw new ArgumentOutOfRangeException();
+                    switch (this.mouseClickMode)
+                    {
+                        case MouseClickMode.Grab: this.mouseClickMode = MouseClickMode.Release; break;
+                        case MouseClickMode.Release: this.mouseClickMode = MouseClickMode.Grab; break;
+                        default: throw new ArgumentOutOfRangeException();
+                    }
                 }
             }
         }
@@ -68,6 +78,20 @@ namespace GGJ2020
         private void Awake()
         {
             this.SetInstance(this);
+        }
+
+        // TODO: Make this method static.
+        public void Pause()
+        {
+            isPaused = true; // TODO: Create an event for pausing the game.
+            Time.timeScale = 0;
+        }
+
+        // TODO: Make this method static.
+        public void Resume()
+        {
+            isPaused = false; // TODO: Create an event for resuming the game.
+            Time.timeScale = 1;
         }
     }
 }

@@ -29,7 +29,8 @@ namespace GGJ2020
 
         private void Update()
         {
-            this.CheckDrag();
+            if (GameManager.Instance != null && !GameManager.Instance.IsPaused)
+            { this.CheckDrag(); }
         }
     }
 }
