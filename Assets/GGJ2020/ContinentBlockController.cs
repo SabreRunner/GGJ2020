@@ -3,8 +3,6 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
-    using PushForward;
     using PushForward.ExtensionMethods;
     using Random = UnityEngine.Random;
     using Events;
@@ -13,8 +11,8 @@
     public class ContinentBlockController : BaseMonoBehaviour
     {
         public enum ResourceType { None, Trees, Water }
-        public enum StatusType { None, Fire, Flood }
 
+        [SerializeField] private Material meshMaterial;
         [SerializeField] private ResourceType resource;
         public ResourceType Resource => this.resource;
         public float health;
@@ -39,7 +37,7 @@
                     .FindAll(instantiator => instantiator.spawnType == GameConfiguration.SpawnType.Tree);
             }
         }
-        
+
         private List<SpecificInstantiator> InstantiatorsWithNone
         {
             get
@@ -48,7 +46,7 @@
                     .FindAll(instantiator => instantiator.spawnType == GameConfiguration.SpawnType.None);
             }
         }
-        
+
         private List<SpecificInstantiator> InstantiatorsForFire
         {
             get
@@ -62,10 +60,11 @@
         public void UpdateHealth()
         {
             this.health = this.InstantiatorsWithTrees.Count / (float)this.objectInstantiators.Length;
-            
+
+            this.meshMaterial.SetFloat("Vector1_DDF08DA6", this.health);
             this.healthEvent?.Raise(new GameEventHealth.HealthStruct { continent = this, health = this.health});
         }
-        
+
         public bool CreateRandomTree()
         {
             List<SpecificInstantiator> instantiators = this.InstantiatorsWithNone;
@@ -82,11 +81,6 @@
             { return; }
             this.ActionInSeconds(this.CreateTrees, 0.1f);
         }
-
-        // public void ResourceGrabbed()
-        // {
-            // this.Temp("ResourceGrabbed", "Grabbed " + this.Resource);
-        // }
 
         public void ResourceDropped(GameEventResourceDrop.ResourceDrop resourceDrop)
         {
@@ -143,19 +137,20 @@
 
         private void Start()
         {
+            this.objectInstantiators.DoForEach(inst => inst.SetPrefabAndInstantiate());
+            this.UpdateHealth();
+            
             if (this.resource == ResourceType.Trees)
             {
                 this.fireWaitForSeconds = new WaitForSeconds(GameManager.Instance.gameConfiguration.fireRiskTimeStepInSeconds);
                 this.StartFirePotential();
             }
-
-            this.objectInstantiators.DoForEach(inst => inst.SetPrefabAndInstantiate());
-            this.UpdateHealth();
         }
 
         private void Awake()
         {
             this.objectInstantiators = this.GetComponentsInChildren<SpecificInstantiator>();
+            this.meshMaterial = this.GetComponent<Renderer>().material;
         }
     }
 }

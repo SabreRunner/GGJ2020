@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cf1dab834d4ec34195b920ea7bbf9ec, type: 3}
-  m_Name: New HDRenderPipelineAsset
+  m_Name: HDRenderPipelineAsset
   m_EditorClassIdentifier: 
   m_Version: 12
   m_ObsoleteFrameSettings:
@@ -340,7 +340,9 @@ MonoBehaviour:
   availableMaterialQualityLevels: -1
   m_DefaultMaterialQualityLevel: 4
   diffusionProfileSettings: {fileID: 0}
-  diffusionProfileSettingsList: []
+  diffusionProfileSettingsList:
+  - {fileID: 11400000, guid: 7ed9f5dd8b47d1b4c87e6523839f8015, type: 2}
+  - {fileID: 11400000, guid: 204df4bf24dc45e44877b82179f823ec, type: 2}
   beforeTransparentCustomPostProcesses: []
   beforePostProcessCustomPostProcesses: []
   afterPostProcessCustomPostProcesses: []

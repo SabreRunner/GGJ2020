@@ -13,17 +13,18 @@ namespace GGJ2020
     {
         public GameConfiguration gameConfiguration;
         [SerializeField] private GameEventResourceDrop resourceDrop;
-        [SerializeField] private GameEventDouble grabbingProgression;
+        [SerializeField] private GameEventDouble grabbingProgressionEvent;
 
         public enum MouseClickMode { None, Grab, Drop }
         public MouseClickMode mouseClickMode;
         public ContinentBlockController lastGrabbedContinent;
         public ContinentBlockController.ResourceType grabbedResource;
         private double grabStarted = double.MinValue;
+        private double grabProgression;
         private bool isPaused = false;
         public bool IsPaused
         {
-            get { return isPaused; }
+            get { return this.isPaused; }
         }
 
         private ContinentBlockController Raycast()
@@ -37,9 +38,9 @@ namespace GGJ2020
         private void Release(ContinentBlockController targetContinent)
         {
             // Return if there is not grabbed resource or if the target continent expects a different resource.
-            if (this.lastGrabbedContinent == null
+            if (this.lastGrabbedContinent == null || this.grabProgression < 0.9f
                 || this.grabbedResource == ContinentBlockController.ResourceType.None
-                || (targetContinent.Resource == ContinentBlockController.ResourceType.Water && this.grabbedResource != ContinentBlockController.ResourceType.Water))
+                || targetContinent.Resource == ContinentBlockController.ResourceType.Water && this.grabbedResource != ContinentBlockController.ResourceType.Water)
             { return; }
 
             this.Temp("Release", "On " + targetContinent.name);
@@ -73,17 +74,17 @@ namespace GGJ2020
             if (this.lastGrabbedContinent == sourceContinent
                 && this.CurrentTimeInMilliseconds <= this.grabStarted + this.gameConfiguration.grabTimeInSeconds * 1000)
             {
-                double grabProgression = (this.CurrentTimeInMilliseconds - this.grabStarted) / 1000 / this.gameConfiguration.grabTimeInSeconds;
-                if (grabProgression.Between(0.5f, 0.52f) || grabProgression.Between(0.98f, 1f))
-                { this.Temp("Grabbing", "Progression: " + grabProgression); }
-                this.grabbingProgression.Raise(grabProgression);
+                this.grabProgression = (this.CurrentTimeInMilliseconds - this.grabStarted) / 1000 / this.gameConfiguration.grabTimeInSeconds;
+                if (this.grabProgression.Between(0.5f, 0.52f) || this.grabProgression.Between(0.98f, 1f))
+                { this.Temp("Grabbing", "Progression: " + this.grabProgression); }
+                this.grabbingProgressionEvent.Raise(this.grabProgression);
             }
         }
-        
+
         private double firstClickFrame = double.MinValue;
         public void Update()
         {
-            if (!IsPaused)
+            if (!this.IsPaused)
             {
                 if (Input.GetMouseButtonDown(0))
                 {

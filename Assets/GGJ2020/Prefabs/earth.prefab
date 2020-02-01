@@ -27,7 +27,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resource: 0
-  status: 0
   health: 0
   fireRisk: 0
   healthEvent: {fileID: 11400000, guid: d12b1da1dea8b96419f771cecdc97763, type: 2}
@@ -59,7 +58,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resource: 1
-  status: 0
   health: 1
   fireRisk: 0
   healthEvent: {fileID: 11400000, guid: d12b1da1dea8b96419f771cecdc97763, type: 2}
@@ -91,7 +89,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resource: 0
-  status: 0
   health: 0
   fireRisk: 0
   healthEvent: {fileID: 11400000, guid: d12b1da1dea8b96419f771cecdc97763, type: 2}
@@ -123,7 +120,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resource: 0
-  status: 0
   health: 0
   fireRisk: 0
   healthEvent: {fileID: 11400000, guid: d12b1da1dea8b96419f771cecdc97763, type: 2}
@@ -185,7 +181,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resource: 2
-  status: 0
   health: 0
   fireRisk: 0
   healthEvent: {fileID: 0}
@@ -310,7 +305,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resource: 0
-  status: 0
   health: 0
   fireRisk: 0
   healthEvent: {fileID: 11400000, guid: d12b1da1dea8b96419f771cecdc97763, type: 2}
@@ -342,7 +336,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resource: 0
-  status: 0
   health: 0
   fireRisk: 0
   healthEvent: {fileID: 11400000, guid: d12b1da1dea8b96419f771cecdc97763, type: 2}
@@ -374,7 +367,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resource: 0
-  status: 0
   health: 0
   fireRisk: 0
   healthEvent: {fileID: 11400000, guid: d12b1da1dea8b96419f771cecdc97763, type: 2}
@@ -1329,7 +1321,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 90b4e0255fb571e4e84e5bc7fe31c328, type: 2}
+      objectReference: {fileID: 2100000, guid: f9fc826a10acb8d40840ef6ec211c8ab, type: 2}
     - target: {fileID: -7671696321517735897, guid: 3b2c04faf77d0f44ea928c54ac7bc513,
         type: 3}
       propertyPath: m_IsActive
@@ -1339,7 +1331,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 90b4e0255fb571e4e84e5bc7fe31c328, type: 2}
+      objectReference: {fileID: 2100000, guid: bbd85c37486f2af408fa574cf02f208f, type: 2}
     - target: {fileID: -4796447118626432177, guid: 3b2c04faf77d0f44ea928c54ac7bc513,
         type: 3}
       propertyPath: m_IsActive
@@ -1409,7 +1401,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 90b4e0255fb571e4e84e5bc7fe31c328, type: 2}
+      objectReference: {fileID: 2100000, guid: f651bf3446d342a4d9656a34f319b6b0, type: 2}
     - target: {fileID: -1859449180154556484, guid: 3b2c04faf77d0f44ea928c54ac7bc513,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1429,7 +1421,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 90b4e0255fb571e4e84e5bc7fe31c328, type: 2}
+      objectReference: {fileID: 2100000, guid: 6684fa1fa16470741b2adea79601e033, type: 2}
     - target: {fileID: 2280791313676931644, guid: 3b2c04faf77d0f44ea928c54ac7bc513,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1449,12 +1441,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 90b4e0255fb571e4e84e5bc7fe31c328, type: 2}
+      objectReference: {fileID: 2100000, guid: 4d6d155da0fe5dd47a96874d457e73cf, type: 2}
     - target: {fileID: 4571716657289758760, guid: 3b2c04faf77d0f44ea928c54ac7bc513,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 90b4e0255fb571e4e84e5bc7fe31c328, type: 2}
+      objectReference: {fileID: 2100000, guid: 3bc49e8167450a743a5e4cc6f0311cb9, type: 2}
     - target: {fileID: 5591950927690599778, guid: 3b2c04faf77d0f44ea928c54ac7bc513,
         type: 3}
       propertyPath: m_IsActive
