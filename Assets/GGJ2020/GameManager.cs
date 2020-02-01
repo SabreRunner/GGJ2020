@@ -5,63 +5,95 @@ namespace GGJ2020
     using Events;
     using UnityEngine;
     using PushForward.EventSystem;
-    using Random = UnityEngine.Random;
+    using PushForward.ExtensionMethods;
+    using UnityEngine.Serialization;
 
     public class GameManager : SingletonBehaviour<GameManager>
     {
         public GameConfiguration gameConfiguration;
-        [SerializeField] private GameEventInt resourceGrabbed;
         [SerializeField] private GameEventResourceDrop resourceDrop;
+        [SerializeField] private GameEventDouble grabbingProgression;
 
-        public enum MouseClickMode { Grab, Release }
+        public enum MouseClickMode { None, Grab, Drop }
         public MouseClickMode mouseClickMode;
+        public ContinentBlockController lastGrabbedContinent;
         public ContinentBlockController.ResourceType grabbedResource;
-        private bool canClick = true;
+        public double grabStarted = double.MinValue;
 
-        public void MouseClickRaycast()
+        private ContinentBlockController Raycast()
         {
             Ray screenPointToRay = this.GetMainCamera().ScreenPointToRay(Input.mousePosition);
-            
-            if (this.canClick && Physics.Raycast(screenPointToRay, out RaycastHit hit, 100f))
+
+            return Physics.Raycast(screenPointToRay, out RaycastHit hit, 100f)
+                       ? hit.transform.GetComponent<ContinentBlockController>() : null;
+        }
+
+        private void Release(ContinentBlockController targetContinent)
+        {
+            if (this.lastGrabbedContinent == null || this.grabbedResource == ContinentBlockController.ResourceType.None)
+            { return; }
+
+            this.Temp("Release", "On " + targetContinent.name);
+            targetContinent.ResourceDropped(
+                new GameEventResourceDrop.ResourceDrop { resource = this.grabbedResource, targetBlock = targetContinent,
+                                                           sourceBlock = this.lastGrabbedContinent });
+            this.lastGrabbedContinent = null;
+            this.grabbedResource = ContinentBlockController.ResourceType.None;
+        }
+
+        private void StartGrab(ContinentBlockController sourceContinent)
+        {
+            if (sourceContinent.Resource == ContinentBlockController.ResourceType.None)
+            { return; }
+
+            this.Temp("StartGrab", "From: " + sourceContinent.name);
+            this.lastGrabbedContinent = sourceContinent;
+            this.grabbedResource = sourceContinent.Resource;
+            this.grabStarted = this.CurrentTimeInMilliseconds;
+        }
+
+        private void Grabbing(ContinentBlockController sourceContinent)
+        {
+            if (this.lastGrabbedContinent == sourceContinent
+                && this.CurrentTimeInMilliseconds <= this.grabStarted + this.gameConfiguration.grabTimeInSeconds * 1000)
             {
-                ContinentBlockController continent = hit.transform.GetComponent<ContinentBlockController>();
-                if (continent == null)
-                { return; }
-
-                if (this.mouseClickMode == MouseClickMode.Grab)
-                {
-                    continent.ResourceGrabbed();
-                    this.grabbedResource = continent.Resource;
-                    this.resourceGrabbed?.Raise((int)this.grabbedResource);
-                    // this.Temp("MouseClickRaycast", "Grabbed " + this.grabbedResource);
-                } else if (this.mouseClickMode == MouseClickMode.Release)
-                {
-                    // this.Temp("MouseClickRaycast", "Dropped " + this.grabbedResource);
-                    GameEventResourceDrop.ResourceDrop drop = new GameEventResourceDrop.ResourceDrop
-                                                                  { resource = this.grabbedResource, targetBlock = continent, dropPoint = hit.point};
-                    this.resourceDrop?.Raise(drop);
-                    continent.ResourceDropped(drop);
-                    this.grabbedResource = ContinentBlockController.ResourceType.None;
-                }
-
-                this.canClick = false;
-                this.ActionInSeconds(()=>this.canClick = true, GameManager.Instance.gameConfiguration.holdTimeStepInSeconds);
+                double grabProgression = (this.CurrentTimeInMilliseconds - this.grabStarted) / 1000 / this.gameConfiguration.grabTimeInSeconds;
+                if (grabProgression.Between(0.5f, 0.52f) || grabProgression.Between(0.98f, 1f))
+                { this.Temp("Grabbing", "Progression: " + grabProgression); }
+                this.grabbingProgression.Raise(grabProgression);
             }
         }
 
+        private double firstClickFrame = double.MinValue;
         public void Update()
         {
-            if (Input.GetMouseButton(0))
-            { this.MouseClickRaycast(); }
-            
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (this.CurrentTimeInMilliseconds < this.firstClickFrame + this.gameConfiguration.doubleClickWindowInMilliseconds)
+                {
+                    this.Release(this.Raycast());
+                    this.firstClickFrame = double.MinValue;
+                }
+                else
+                {
+                    this.firstClickFrame = this.CurrentTimeInMilliseconds;
+                    this.ActionInSeconds(()=>this.firstClickFrame = double.MinValue,
+                                         (float)this.gameConfiguration.doubleClickWindowInMilliseconds / 1000);
+                }
+            }
+
+            if (Input.GetMouseButton(0) && this.firstClickFrame < 0)
+            {
+                if (this.grabStarted < 0)
+                { this.StartGrab(this.Raycast()); }
+                else { this.Grabbing(this.Raycast()); }
+            }
+
             if (Input.GetMouseButtonUp(0))
             {
-                switch (this.mouseClickMode)
-                {
-                    case MouseClickMode.Grab: this.mouseClickMode = MouseClickMode.Release; break;
-                    case MouseClickMode.Release: this.mouseClickMode = MouseClickMode.Grab; break;
-                    default: throw new ArgumentOutOfRangeException();
-                }
+                this.grabStarted = double.MinValue;
+                if (this.CurrentTimeInMilliseconds > this.firstClickFrame + this.gameConfiguration.doubleClickWindowInMilliseconds)
+                { this.firstClickFrame = double.MinValue; }
             }
         }
 

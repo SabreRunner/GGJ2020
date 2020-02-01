@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aed399d5085004458442e115a582250, type: 3}
-  m_Name: Grabbed Resource Event
+  m_Script: {fileID: 11500000, guid: 131bed285c7549c39e765f163561f068, type: 3}
+  m_Name: Grabbing Progression Event
   m_EditorClassIdentifier: 
-  integer: 0
+  double: 0

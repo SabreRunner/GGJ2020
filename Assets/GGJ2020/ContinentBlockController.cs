@@ -18,6 +18,7 @@
         public ResourceType Resource => this.resource;
         [SerializeField] private StatusType status;
         public StatusType Status => this.status;
+        public float health;
         public float fireRisk;
         private Coroutine fireRiskCoroutine;
         [SerializeField] private SpecificInstantiator[] objectInstantiators;
@@ -59,17 +60,29 @@
             this.Temp("ResourceDropped", "Dropped: " + resourceDrop);
             if (resourceDrop.targetBlock != this)
             { return; }
-            
-            if (this.resource != ResourceType.Water && resourceDrop.resource == ResourceType.Trees)
-            { this.CreateRandomTree(); }
+
+            if (resourceDrop.resource == ResourceType.Trees)
+            {
+                this.CreateRandomTree();
+
+                this.health = (this.health + GameManager.Instance.gameConfiguration.healthIncreasePerStep).Clamp01();
+
+                if (this.fireRiskCoroutine == null)
+                { this.StartFirePotential(); }
+            }
+
+            if (resourceDrop.resource == ResourceType.Water)
+            {
+                this.StopCoroutine(this.fireRiskCoroutine);
+            }
         }
-        
+
         public void CreateRandomFire()
         {
             List<SpecificInstantiator> fireInstantiators = this.FireInstantiators;
             fireInstantiators[Random.Range(0, fireInstantiators.Count - 1)].Instantiate(GameConfiguration.SpawnType.Fire);
         }
-        
+
         private WaitForSeconds fireWaitForSeconds;
         private IEnumerator FireCoroutine()
         {
@@ -80,13 +93,13 @@
                 if (roll.Between(0, this.fireRisk))
                 { this.CreateRandomFire(); }
                 yield return this.fireWaitForSeconds;
-                this.fireRisk += GameManager.Instance.gameConfiguration.fireRiskIncrease;
+                this.fireRisk = (this.fireRisk + GameManager.Instance.gameConfiguration.fireRiskIncrease).Clamp01();
             }
         }
-        
+
         private void StartFirePotential()
         {
-            this.fireRisk = GameManager.Instance.gameConfiguration.initialFireRisk;
+            this.fireRisk = GameManager.Instance.gameConfiguration.initialFireRisk.Evaluate(this.health);
             this.fireRiskCoroutine = this.StartCoroutine(this.FireCoroutine());
         }
 
