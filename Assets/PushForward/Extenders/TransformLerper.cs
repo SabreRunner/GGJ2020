@@ -25,9 +25,9 @@ namespace Soroka
             float fraction = currentTime / this.IndexedLerp.durationInSeconds;
             float evaluatedFraction = this.IndexedLerp.animationCurve.Evaluate(fraction);
 
-            this.transform.localPosition = Vector3.Lerp(this.IndexedLerp.sourceRectTransform.localPosition, this.IndexedLerp.targetRectTransform.localPosition, evaluatedFraction);
-            this.transform.localRotation = Quaternion.Lerp(this.IndexedLerp.sourceRectTransform.localRotation, this.IndexedLerp.targetRectTransform.localRotation, evaluatedFraction);
-            this.transform.localScale = Vector3.Lerp(this.IndexedLerp.sourceRectTransform.localScale, this.IndexedLerp.targetRectTransform.localScale, evaluatedFraction);
+            this.IndexedLerp.transform.localPosition = Vector3.Lerp(this.IndexedLerp.sourceRectTransform.localPosition, this.IndexedLerp.targetRectTransform.localPosition, evaluatedFraction);
+            this.IndexedLerp.transform.localRotation = Quaternion.Lerp(this.IndexedLerp.sourceRectTransform.localRotation, this.IndexedLerp.targetRectTransform.localRotation, evaluatedFraction);
+            this.IndexedLerp.transform.localScale = Vector3.Lerp(this.IndexedLerp.sourceRectTransform.localScale, this.IndexedLerp.targetRectTransform.localScale, evaluatedFraction);
         }
 
         public void LerpTransform(int lerpIndex)
