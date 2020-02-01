@@ -43,7 +43,7 @@ namespace GGJ2020
                 || targetContinent.Resource == ContinentBlockController.ResourceType.Water && this.grabbedResource != ContinentBlockController.ResourceType.Water)
             { return; }
 
-            this.Temp("Release", "On " + targetContinent.name);
+            // this.Temp("Release", "On " + targetContinent.name);
             GameEventResourceDrop.ResourceDrop resourceDropped = new GameEventResourceDrop.ResourceDrop
                                                                      {
                                                                          resource = this.grabbedResource,
@@ -62,7 +62,7 @@ namespace GGJ2020
             if (sourceContinent.Resource == ContinentBlockController.ResourceType.None)
             { return; }
 
-            this.Temp("StartGrab", "From: " + sourceContinent.name);
+            // this.Temp("StartGrab", "From: " + sourceContinent.name);
             this.lastGrabbedContinent = sourceContinent;
             this.grabbedResource = sourceContinent.Resource;
             this.grabStarted = this.CurrentTimeInMilliseconds;
@@ -74,9 +74,47 @@ namespace GGJ2020
                 && this.CurrentTimeInMilliseconds <= this.grabStarted + this.gameConfiguration.grabTimeInSeconds * 1000)
             {
                 this.grabProgression = (this.CurrentTimeInMilliseconds - this.grabStarted) / 1000 / this.gameConfiguration.grabTimeInSeconds;
-                if (this.grabProgression.Between(0.98f, 1f))
-                { this.Temp("Grabbing", "Progression: " + this.grabProgression); }
+                // if (this.grabProgression.Between(0.98f, 1f))
+                // { this.Temp("Grabbing", "Progression: " + this.grabProgression); }
                 this.grabbingProgressionEvent.Raise(this.grabProgression);
+            }
+        }
+        
+        private void CheckMouseInput()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (this.CurrentTimeInMilliseconds <
+                    this.firstClickFrame + this.gameConfiguration.doubleClickWindowInMilliseconds)
+                {
+                    this.Temp("CheckMouseInput", "Second click of double click." + " (Frame: " + Time.frameCount + ")");
+                    this.Release(this.Raycast());
+                    return;
+                }
+                else
+                {
+                    this.Temp("CheckMouseInput", "First click of double click." + " (Frame: " + Time.frameCount + ")");
+                    this.firstClickFrame = this.CurrentTimeInMilliseconds;
+                    this.ActionInSeconds(() => this.firstClickFrame = double.MinValue,
+                                         (float)this.gameConfiguration.doubleClickWindowInMilliseconds / 1000);
+                }
+            }
+
+            if (Input.GetMouseButton(0) && this.firstClickFrame < 0)
+            {
+                this.Temp("CheckMouseInput", "Grabbing." + " (Frame: " + Time.frameCount + ")");
+                if (this.grabStarted < 0)
+                { this.StartGrab(this.Raycast()); }
+                else { this.Grabbing(this.Raycast()); }
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                this.Temp("CheckMouseInput", "Release." + " (Frame: " + Time.frameCount + ")");
+                this.grabStarted = double.MinValue;
+                if (this.CurrentTimeInMilliseconds > this.firstClickFrame + this.gameConfiguration.doubleClickWindowInMilliseconds
+                    || this.lastGrabbedContinent == null)
+                { this.firstClickFrame = double.MinValue; }
             }
         }
 
@@ -84,38 +122,7 @@ namespace GGJ2020
         public void Update()
         {
             if (!this.IsPaused)
-            {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    if (this.CurrentTimeInMilliseconds <
-                        this.firstClickFrame + this.gameConfiguration.doubleClickWindowInMilliseconds)
-                    {
-                        this.Release(this.Raycast());
-                        this.firstClickFrame = double.MinValue;
-                    }
-                    else
-                    {
-                        this.firstClickFrame = this.CurrentTimeInMilliseconds;
-                        this.ActionInSeconds(() => this.firstClickFrame = double.MinValue,
-                                             (float)this.gameConfiguration.doubleClickWindowInMilliseconds / 1000);
-                    }
-                }
-
-                if (Input.GetMouseButton(0) && this.firstClickFrame < 0)
-                {
-                    if (this.grabStarted < 0)
-                    { this.StartGrab(this.Raycast()); }
-                    else { this.Grabbing(this.Raycast()); }
-                }
-
-                if (Input.GetMouseButtonUp(0))
-                {
-                    this.grabStarted = double.MinValue;
-                    if (this.CurrentTimeInMilliseconds >
-                        this.firstClickFrame + this.gameConfiguration.doubleClickWindowInMilliseconds)
-                    { this.firstClickFrame = double.MinValue; }
-                }
-            }
+            { this.CheckMouseInput(); }
         }
 
         private void Awake()
