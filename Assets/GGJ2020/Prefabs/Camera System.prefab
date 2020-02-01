@@ -137,6 +137,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 972989347695595136}
+        m_MethodName: DestroyThisBehaviour
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7933942650404438607
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,7 +242,7 @@ Skybox:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7933942650404438607}
   m_Enabled: 1
-  m_CustomSkybox: {fileID: 2100000, guid: 9cb652bf8843a8a40835a86fb5ee1724, type: 2}
+  m_CustomSkybox: {fileID: 0}
 --- !u!82 &7933942650404438600
 AudioSource:
   m_ObjectHideFlags: 0

@@ -65,12 +65,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 669d82eb9d8c20a4c8fb1bc438a053ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverEvent: {fileID: 11400000, guid: 99710998c2e56af4bbd2371cb499e171, type: 2}
   sunRenderer: {fileID: 3365236119077253490}
   sunStates:
   - {fileID: 2100000, guid: f6ef3da625786b64ab2a45f00ad9d998, type: 2}
   - {fileID: 2100000, guid: 3f0f6217a94bb234193c54c5b4130165, type: 2}
   - {fileID: 2100000, guid: c92aa21fc80c8ce41b6cf957e01d5c1a, type: 2}
   - {fileID: 2100000, guid: 2d0c1213322e490458fc23174a315175, type: 2}
+  averageHealth: 0
 --- !u!114 &2740454599345534392
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -59,7 +59,8 @@ namespace GGJ2020
 
         private void StartGrab(ContinentBlockController sourceContinent)
         {
-            if (sourceContinent.Resource == ContinentBlockController.ResourceType.None)
+            if (sourceContinent == null
+                || sourceContinent.Resource == ContinentBlockController.ResourceType.None)
             { return; }
 
             // this.Temp("StartGrab", "From: " + sourceContinent.name);

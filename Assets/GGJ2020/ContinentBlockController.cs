@@ -3,6 +3,7 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using PushForward.ExtensionMethods;
     using Random = UnityEngine.Random;
     using Events;
@@ -28,6 +29,8 @@
                     .FindAll(instantiator => instantiator.spawnType == GameConfiguration.SpawnType.Fire);
             }
         }
+        
+        public bool OnFire => this.InstantiatorsWithFire.Any();
 
         private List<SpecificInstantiator> InstantiatorsWithTrees
         {
@@ -125,13 +128,13 @@
         {
             while (this.InstantiatorsForFire.Count > 0)
             {
-                this.Temp("FireCoroutine", "Waiting");
+                // this.Temp("FireCoroutine", "Waiting");
                 yield return new WaitForSeconds(GameManager.Instance.gameConfiguration.fireRiskTimeStepInSeconds);
                 float roll = Random.Range(0f, 1f);
                 // this.Temp("FireCoroutine", "Rolled: " + roll);
                 if (roll.Between(0, this.fireRisk))
                 {
-                    this.Temp("FireCoroutine", "Rolled " + roll + "/" + this.fireRisk);
+                    // this.Temp("FireCoroutine", "Rolled " + roll + "/" + this.fireRisk);
                     this.CreateRandomFire();
                 }
                 this.fireRisk = (this.fireRisk + GameManager.Instance.gameConfiguration.fireRiskIncrease).Clamp01();
@@ -140,18 +143,21 @@
 
         private void StartFirePotential()
         {
-            this.Temp("StartFirePotential", "Starting Fires.");
+            // this.Temp("StartFirePotential", "Starting Fires.");
             this.fireRisk = GameManager.Instance.gameConfiguration.initialFireRisk.Evaluate(this.health);
             this.fireRiskCoroutine = this.StartCoroutine(this.FireCoroutine());
+        }
+
+        public void StartGame()
+        {
+            this.UpdateHealth();
+            if (this.resource == ResourceType.Trees)
+            { this.StartFirePotential(); }
         }
 
         private void Start()
         {
             this.objectInstantiators.DoForEach(inst => inst.SetPrefabAndInstantiate());
-            this.UpdateHealth();
-
-            if (this.resource == ResourceType.Trees)
-            { this.StartFirePotential(); }
         }
 
         private void Awake()

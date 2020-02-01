@@ -18,7 +18,7 @@ namespace GGJ2020
 
         public long doubleClickWindowInMilliseconds = 200;
         public float grabTimeInSeconds = 3f;
-
-        public float failThreshold = 0.3f;
+        
+        public float healthFailThreshold = 0.09f;
     }
 }
