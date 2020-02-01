@@ -1,10 +1,7 @@
 ﻿namespace GGJ2020
 {
-    using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
-    using PushForward;
     using PushForward.ExtensionMethods;
     using Random = UnityEngine.Random;
     using Events;
@@ -13,7 +10,6 @@
     public class ContinentBlockController : BaseMonoBehaviour
     {
         public enum ResourceType { None, Trees, Water }
-        public enum StatusType { None, Fire, Flood }
 
         [SerializeField] private Material meshMaterial;
         [SerializeField] private ResourceType resource;
@@ -84,11 +80,6 @@
             { return; }
             this.ActionInSeconds(this.CreateTrees, 0.1f);
         }
-
-        // public void ResourceGrabbed()
-        // {
-            // this.Temp("ResourceGrabbed", "Grabbed " + this.Resource);
-        // }
 
         public void ResourceDropped(GameEventResourceDrop.ResourceDrop resourceDrop)
         {
