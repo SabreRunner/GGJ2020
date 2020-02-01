@@ -43,7 +43,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   fireRiskIncrease: 0.05
   fireRiskTimeStepInSeconds: 10
-  holdTimeStepInSeconds: 0.35
-  healthIncreasePerStep: 0.2
   doubleClickWindowInMilliseconds: 200
-  grabTimeInSeconds: 3
+  grabTimeInSeconds: 1
+  failThreshold: 0.3
