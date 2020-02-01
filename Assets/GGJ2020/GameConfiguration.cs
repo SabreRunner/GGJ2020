@@ -16,11 +16,9 @@ namespace GGJ2020
         public float fireRiskIncrease = 0.1f;
         public float fireRiskTimeStepInSeconds = 5f;
 
-        public float holdTimeStepInSeconds = 0.5f;
-        public float healthIncreasePerStep = 0.2f;
-        
         public long doubleClickWindowInMilliseconds = 200;
-        
         public float grabTimeInSeconds = 3f;
+
+        public float failThreshold = 0.3f;
     }
 }

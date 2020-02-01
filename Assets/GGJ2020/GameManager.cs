@@ -44,18 +44,17 @@ namespace GGJ2020
             { return; }
 
             this.Temp("Release", "On " + targetContinent.name);
-            var resourceDropped = new GameEventResourceDrop.ResourceDrop
-            {
-                resource = this.grabbedResource,
-                targetBlock = targetContinent,
-                sourceBlock = this.lastGrabbedContinent
-            };
+            GameEventResourceDrop.ResourceDrop resourceDropped = new GameEventResourceDrop.ResourceDrop
+                                                                     {
+                                                                         resource = this.grabbedResource,
+                                                                         targetBlock = targetContinent,
+                                                                         sourceBlock = this.lastGrabbedContinent
+                                                                     };
+            this.resourceDrop.Raise(resourceDropped);
             targetContinent.ResourceDropped(resourceDropped);
-
 
             this.lastGrabbedContinent = null;
             this.grabbedResource = ContinentBlockController.ResourceType.None;
-            this.resourceDrop.Raise(resourceDropped);
         }
 
         private void StartGrab(ContinentBlockController sourceContinent)
