@@ -7,17 +7,5 @@ namespace GGJ2020
     public class Resources : BaseMonoBehaviour
     {
         public ContinentBlockController.ResourceType SelectedResource;
-
-        // Start is called before the first frame update
-        void Start()
-        {
-            
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
     }
 }

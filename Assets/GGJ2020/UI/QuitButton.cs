@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace GGJ2020
+﻿namespace GGJ2020.UI
 {
+    using UnityEngine;
+
     public class QuitButton : MonoBehaviour
     {
         public void Quit()

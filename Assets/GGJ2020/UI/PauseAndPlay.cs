@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-
-namespace GGJ2020
+﻿namespace GGJ2020.UI
 {
+    using UnityEngine;
+    using UnityEngine.UI;
+
     public class PauseAndPlay : BaseMonoBehaviour
     {
         private Image image;
-        private bool IsPlaying = true;
+        // private bool IsPlaying = true;
 
         public Sprite PauseImage;
         public Sprite PlayImage;
@@ -21,20 +19,20 @@ namespace GGJ2020
             if (GameManager.Instance != null && !GameManager.Instance.IsPaused)
             {
                 GameManager.Instance?.Pause();
-                image.sprite = PlayImage;
-                PausePanel.SetActive(true);
+                this.image.sprite = this.PlayImage;
+                this.PausePanel.SetActive(true);
             } else
             {
                 GameManager.Instance?.Resume();
-                image.sprite = PauseImage;
-                PausePanel.SetActive(false);
+                this.image.sprite = this.PauseImage;
+                this.PausePanel.SetActive(false);
             }
         }
 
         void Start()
         {
-            image = GetComponent<Image>();
-            image.sprite = (GameManager.Instance != null && !GameManager.Instance.IsPaused) ? PauseImage : PlayImage;
+            this.image = this.GetComponent<Image>();
+            this.image.sprite = (GameManager.Instance != null && !GameManager.Instance.IsPaused) ? this.PauseImage : this.PlayImage;
         }
     }
 }

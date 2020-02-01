@@ -128,34 +128,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1532979835}
     m_Modifications:
-    - target: {fileID: 116436966, guid: 3b194b8ba8b5a104db0fa1994d64ac71, type: 3}
-      propertyPath: resource
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 116436967, guid: 3b194b8ba8b5a104db0fa1994d64ac71, type: 3}
-      propertyPath: resource
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 116436968, guid: 3b194b8ba8b5a104db0fa1994d64ac71, type: 3}
-      propertyPath: resource
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 116436969, guid: 3b194b8ba8b5a104db0fa1994d64ac71, type: 3}
-      propertyPath: resource
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 116436970, guid: 3b194b8ba8b5a104db0fa1994d64ac71, type: 3}
-      propertyPath: resource
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 116436971, guid: 3b194b8ba8b5a104db0fa1994d64ac71, type: 3}
-      propertyPath: resource
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 116436997, guid: 3b194b8ba8b5a104db0fa1994d64ac71, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5008456417781315624, guid: 3b194b8ba8b5a104db0fa1994d64ac71,
         type: 3}
       propertyPath: m_Name
@@ -184,7 +156,7 @@ PrefabInstance:
     - target: {fileID: 7555541608837169698, guid: 3b194b8ba8b5a104db0fa1994d64ac71,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.76604444
       objectReference: {fileID: 0}
     - target: {fileID: 7555541608837169698, guid: 3b194b8ba8b5a104db0fa1994d64ac71,
         type: 3}
@@ -194,7 +166,7 @@ PrefabInstance:
     - target: {fileID: 7555541608837169698, guid: 3b194b8ba8b5a104db0fa1994d64ac71,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.64278764
       objectReference: {fileID: 0}
     - target: {fileID: 7555541608837169698, guid: 3b194b8ba8b5a104db0fa1994d64ac71,
         type: 3}
@@ -209,7 +181,7 @@ PrefabInstance:
     - target: {fileID: 7555541608837169698, guid: 3b194b8ba8b5a104db0fa1994d64ac71,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7555541608837169698, guid: 3b194b8ba8b5a104db0fa1994d64ac71,
         type: 3}
@@ -304,9 +276,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameConfiguration: {fileID: 11400000, guid: ed2c77da848ab2341ac46b9b1544d1fb, type: 2}
-  resourceGrabbed: {fileID: 11400000, guid: 2a5980981d395b440900f0c8efbdcd5b, type: 2}
   resourceDrop: {fileID: 11400000, guid: db51ddaf7becc004d9d726f1043d44bc, type: 2}
+  grabbingProgression: {fileID: 11400000, guid: 7ef951da5bcdecb47b2a0d3ad71aab8e,
+    type: 2}
   mouseClickMode: 0
+  lastGrabbedContinent: {fileID: 0}
   grabbedResource: 0
 --- !u!1 &536024596
 GameObject:
@@ -476,6 +450,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2131641833, guid: 3aa2196e0e0d806458b4e3e70327fcc8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 504122176223457410, guid: 3aa2196e0e0d806458b4e3e70327fcc8,
         type: 3}
       propertyPath: m_Name

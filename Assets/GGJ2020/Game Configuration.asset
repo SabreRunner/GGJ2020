@@ -41,10 +41,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  fireRiskIncrease: 0.1
-  fireRiskTimeStepInSeconds: 5
+  fireRiskIncrease: 0.05
+  fireRiskTimeStepInSeconds: 10
   holdTimeStepInSeconds: 0.35
   healthIncreasePerStep: 0.2
   doubleClickWindowInMilliseconds: 200
   grabTimeInSeconds: 3
-  

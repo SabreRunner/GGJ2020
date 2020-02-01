@@ -26,8 +26,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f2fe18c24effc4daf24dc5dade17c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resource: 1
+  resource: 0
   status: 0
+  health: 0
   fireRisk: 0
   objectInstantiators: []
 --- !u!64 &116437004
@@ -58,6 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resource: 1
   status: 0
+  health: 1
   fireRisk: 0
   objectInstantiators: []
 --- !u!64 &116437000
@@ -86,8 +88,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f2fe18c24effc4daf24dc5dade17c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resource: 1
+  resource: 0
   status: 0
+  health: 0
   fireRisk: 0
   objectInstantiators: []
 --- !u!64 &116436999
@@ -116,8 +119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f2fe18c24effc4daf24dc5dade17c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resource: 1
+  resource: 0
   status: 0
+  health: 0
   fireRisk: 0
   objectInstantiators: []
 --- !u!1 &5008456417781315624
@@ -144,7 +148,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5008456417781315624}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.08658314, y: 0.0036315918, z: -0.28748226}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3869362213862059053}
@@ -178,6 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resource: 2
   status: 0
+  health: 0
   fireRisk: 0
   objectInstantiators: []
 --- !u!1 &5594252792064257231
@@ -299,8 +304,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f2fe18c24effc4daf24dc5dade17c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resource: 1
+  resource: 0
   status: 0
+  health: 0
   fireRisk: 0
   objectInstantiators: []
 --- !u!64 &116437002
@@ -329,8 +335,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f2fe18c24effc4daf24dc5dade17c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resource: 1
+  resource: 0
   status: 0
+  health: 0
   fireRisk: 0
   objectInstantiators: []
 --- !u!64 &116437003
@@ -359,8 +366,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f2fe18c24effc4daf24dc5dade17c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resource: 1
+  resource: 0
   status: 0
+  health: 0
   fireRisk: 0
   objectInstantiators: []
 --- !u!1001 &113709623715540993
