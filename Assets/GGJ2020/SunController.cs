@@ -1,6 +1,7 @@
 ﻿
 namespace GGJ2020
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Events;
@@ -14,7 +15,8 @@ namespace GGJ2020
         [SerializeField] private MeshRenderer sunRenderer;
         [SerializeField] private Material[] sunStates;
 
-        public float averageHealth;
+        public float averageHealth = 1f;
+        private bool canEnd;
 
         private Dictionary<ContinentBlockController, float> healthDictionary = new Dictionary<ContinentBlockController, float>();
 
@@ -26,21 +28,28 @@ namespace GGJ2020
             float totalHealth = this.healthDictionary.Sum(health => health.Value);
             this.averageHealth = totalHealth / this.healthDictionary.Count;
 
+            // this.Temp("UpdateHealth", "Average Health: " + this.averageHealth + "; Can end = " + this.canEnd);
+
             int sunState = (this.averageHealth * (this.sunStates.Length - 1)).Floor();
 
             this.sunRenderer.material = this.sunStates[sunState];
 
-            if (this.averageHealth <= GameManager.Instance.gameConfiguration.healthFailThreshold)
+            if (this.canEnd && this.averageHealth <= GameManager.Instance.gameConfiguration.healthFailThreshold)
             {
-                this.Temp("UpdateHealth", "You lose.");
+                // this.Temp("UpdateHealth", "You lose.");
                 this.gameOverEvent.Raise(false);
             }
 
-            if (this.averageHealth > 0.9 && !this.healthDictionary.Any(pair => pair.Key.OnFire))
+            if (this.canEnd && this.averageHealth > 0.9 && !this.healthDictionary.Any(pair => pair.Key.OnFire))
             {
-                this.Temp("UpdateHealth", "You win.");
+                // this.Temp("UpdateHealth", "You win.");
                 this.gameOverEvent.Raise(true);
             }
+        }
+
+        public void StartGame()
+        {
+            this.ActionInSeconds(()=>this.ActionWhenPredicate(()=> this.canEnd = true, ()=> this.averageHealth < 0.5f), 1f);
         }
 
         private void OnValidate()

@@ -1216,11 +1216,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4053645452432711335, guid: 43065359745e42f4dbd5a3fc69486578,
-        type: 3}
-      propertyPath: m_Name
-      value: Tutorial Screen
-      objectReference: {fileID: 0}
     - target: {fileID: 4053645452580380522, guid: 43065359745e42f4dbd5a3fc69486578,
         type: 3}
       propertyPath: m_Name
