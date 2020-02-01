@@ -120,11 +120,11 @@
         {
             while (this.InstantiatorsForFire.Count > 0)
             {
+                yield return this.fireWaitForSeconds;
                 float roll = Random.Range(0f, 1f);
                 // this.Temp("FireCoroutine", "Rolled: " + roll);
                 if (roll.Between(0, this.fireRisk))
                 { this.CreateRandomFire(); }
-                yield return this.fireWaitForSeconds;
                 this.fireRisk = (this.fireRisk + GameManager.Instance.gameConfiguration.fireRiskIncrease).Clamp01();
             }
         }
@@ -139,7 +139,7 @@
         {
             this.objectInstantiators.DoForEach(inst => inst.SetPrefabAndInstantiate());
             this.UpdateHealth();
-            
+
             if (this.resource == ResourceType.Trees)
             {
                 this.fireWaitForSeconds = new WaitForSeconds(GameManager.Instance.gameConfiguration.fireRiskTimeStepInSeconds);
