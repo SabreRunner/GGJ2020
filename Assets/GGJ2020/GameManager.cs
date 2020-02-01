@@ -36,7 +36,7 @@ namespace GGJ2020
 
         private void Release(ContinentBlockController targetContinent)
         {
-            if (this.lastGrabbedContinent == null || this.grabbedResource == ContinentBlockController.ResourceType.None)
+            if (this.lastGrabbedContinent == null || this.grabbedResource != targetContinent.Resource)
             { return; }
 
             this.Temp("Release", "On " + targetContinent.name);
