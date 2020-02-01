@@ -31,10 +31,16 @@ namespace GGJ2020
             this.sunRenderer.material = this.sunStates[sunState];
 
             if (this.averageHealth <= GameManager.Instance.gameConfiguration.healthFailThreshold)
-            { this.gameOverEvent.Raise(false); }
+            {
+                this.Temp("UpdateHealth", "You lose.");
+                this.gameOverEvent.Raise(false);
+            }
 
             if (this.averageHealth > 0.9 && !this.healthDictionary.Any(pair => pair.Key.OnFire))
-            { this.gameOverEvent.Raise(true); }
+            {
+                this.Temp("UpdateHealth", "You win.");
+                this.gameOverEvent.Raise(true);
+            }
         }
 
         private void OnValidate()
