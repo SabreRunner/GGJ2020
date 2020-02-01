@@ -2,6 +2,7 @@
 namespace GGJ2020
 {
     using System;
+    using System.Collections.Generic;
     using Events;
     using UnityEngine;
     using PushForward.EventSystem;
@@ -68,7 +69,7 @@ namespace GGJ2020
                 this.grabbingProgression.Raise(grabProgression);
             }
         }
-
+        
         private double firstClickFrame = double.MinValue;
         public void Update()
         {

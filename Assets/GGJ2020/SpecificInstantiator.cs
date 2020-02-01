@@ -12,19 +12,24 @@ namespace GGJ2020
             => GameManager.Instance.gameConfiguration.treePrefabs
                 [Random.Range(0, GameManager.Instance.gameConfiguration.treePrefabs.Length - 1)];
 
-        public void Instantiate(GameConfiguration.SpawnType spawnType)
+        public void SetPrefabAndInstantiate()
         {
-            this.DestroyAllChildren();
-            this.spawnType = spawnType;
-
-            switch (spawnType)
+            switch (this.spawnType)
             {
                 case GameConfiguration.SpawnType.Tree: this.Prefab = SpecificInstantiator.TreePrefab; break;
                 case GameConfiguration.SpawnType.Fire: this.Prefab = SpecificInstantiator.FirePrefab; break;
                 default: this.Prefab = null; break;
             }
-			
+
             this.Instantiate();
+        }
+
+        public void Instantiate(GameConfiguration.SpawnType spawnType)
+        {
+            this.DestroyAllChildren();
+            this.spawnType = spawnType;
+
+            this.SetPrefabAndInstantiate();
         }
     }
 }

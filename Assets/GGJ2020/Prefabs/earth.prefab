@@ -30,6 +30,7 @@ MonoBehaviour:
   status: 0
   health: 0
   fireRisk: 0
+  healthEvent: {fileID: 11400000, guid: d12b1da1dea8b96419f771cecdc97763, type: 2}
   objectInstantiators: []
 --- !u!64 &116437004
 MeshCollider:
@@ -61,6 +62,7 @@ MonoBehaviour:
   status: 0
   health: 1
   fireRisk: 0
+  healthEvent: {fileID: 11400000, guid: d12b1da1dea8b96419f771cecdc97763, type: 2}
   objectInstantiators: []
 --- !u!64 &116437000
 MeshCollider:
@@ -92,6 +94,7 @@ MonoBehaviour:
   status: 0
   health: 0
   fireRisk: 0
+  healthEvent: {fileID: 11400000, guid: d12b1da1dea8b96419f771cecdc97763, type: 2}
   objectInstantiators: []
 --- !u!64 &116436999
 MeshCollider:
@@ -123,6 +126,7 @@ MonoBehaviour:
   status: 0
   health: 0
   fireRisk: 0
+  healthEvent: {fileID: 11400000, guid: d12b1da1dea8b96419f771cecdc97763, type: 2}
   objectInstantiators: []
 --- !u!1 &5008456417781315624
 GameObject:
@@ -184,6 +188,7 @@ MonoBehaviour:
   status: 0
   health: 0
   fireRisk: 0
+  healthEvent: {fileID: 0}
   objectInstantiators: []
 --- !u!1 &5594252792064257231
 GameObject:
@@ -308,6 +313,7 @@ MonoBehaviour:
   status: 0
   health: 0
   fireRisk: 0
+  healthEvent: {fileID: 11400000, guid: d12b1da1dea8b96419f771cecdc97763, type: 2}
   objectInstantiators: []
 --- !u!64 &116437002
 MeshCollider:
@@ -339,6 +345,7 @@ MonoBehaviour:
   status: 0
   health: 0
   fireRisk: 0
+  healthEvent: {fileID: 11400000, guid: d12b1da1dea8b96419f771cecdc97763, type: 2}
   objectInstantiators: []
 --- !u!64 &116437003
 MeshCollider:
@@ -370,6 +377,7 @@ MonoBehaviour:
   status: 0
   health: 0
   fireRisk: 0
+  healthEvent: {fileID: 11400000, guid: d12b1da1dea8b96419f771cecdc97763, type: 2}
   objectInstantiators: []
 --- !u!1001 &113709623715540993
 PrefabInstance:
@@ -452,6 +460,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8371627210596239677, guid: acc37e347bb388f41a576c38e6de251f,
+        type: 3}
+      propertyPath: spawnType
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acc37e347bb388f41a576c38e6de251f, type: 3}
@@ -536,6 +549,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8371627210596239677, guid: acc37e347bb388f41a576c38e6de251f,
+        type: 3}
+      propertyPath: spawnType
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acc37e347bb388f41a576c38e6de251f, type: 3}
@@ -1292,6 +1310,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8371627210596239677, guid: acc37e347bb388f41a576c38e6de251f,
+        type: 3}
+      propertyPath: spawnType
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acc37e347bb388f41a576c38e6de251f, type: 3}

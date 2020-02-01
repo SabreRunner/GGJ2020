@@ -28,6 +28,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5021095156596428806}
+  - component: {fileID: 2544223452260914199}
+  - component: {fileID: 2740454599345534392}
   m_Layer: 0
   m_Name: sun_GRP
   m_TagString: Untagged
@@ -51,6 +53,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2544223452260914199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5021095156596428825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 669d82eb9d8c20a4c8fb1bc438a053ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sunRenderer: {fileID: 3365236119077253490}
+  sunStates:
+  - {fileID: 2100000, guid: f6ef3da625786b64ab2a45f00ad9d998, type: 2}
+  - {fileID: 2100000, guid: 3f0f6217a94bb234193c54c5b4130165, type: 2}
+  - {fileID: 2100000, guid: c92aa21fc80c8ce41b6cf957e01d5c1a, type: 2}
+  - {fileID: 2100000, guid: 2d0c1213322e490458fc23174a315175, type: 2}
+--- !u!114 &2740454599345534392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5021095156596428825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b47af2f6b6b3411ca9f50c165ed3cd48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respondWhenDisabled: 0
+  gameEventHealth: {fileID: 11400000, guid: d12b1da1dea8b96419f771cecdc97763, type: 2}
+  healthResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2544223452260914199}
+        m_MethodName: UpdateHealth
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8619602778044823205
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,6 +329,12 @@ GameObject:
 --- !u!4 &59733992784345021 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 7b33863714ecb40418d0e573f7f3823b,
+    type: 3}
+  m_PrefabInstance: {fileID: 5021095158024019111}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3365236119077253490 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1504981713932161579, guid: 7b33863714ecb40418d0e573f7f3823b,
     type: 3}
   m_PrefabInstance: {fileID: 5021095158024019111}
   m_PrefabAsset: {fileID: 0}
