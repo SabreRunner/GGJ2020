@@ -13,17 +13,28 @@ namespace GGJ2020
         public Sprite PauseImage;
         public Sprite PlayImage;
 
+        public CanvasRenderer PausePanel;
+
         public void Toggle()
         {
-            IsPlaying = !IsPlaying;
-            image.sprite = IsPlaying ? PauseImage : PlayImage;
+            // TODO: Use event listeners instead.
+            if (GameManager.Instance != null && !GameManager.Instance.IsPaused)
+            {
+                GameManager.Instance?.Pause();
+                image.sprite = PlayImage;
+                PausePanel.SetActive(true);
+            } else
+            {
+                GameManager.Instance?.Resume();
+                image.sprite = PauseImage;
+                PausePanel.SetActive(false);
+            }
         }
 
-        // Update is called once per frame
         void Start()
         {
             image = GetComponent<Image>();
-            image.sprite = IsPlaying ? PauseImage : PlayImage;
+            image.sprite = (GameManager.Instance != null && !GameManager.Instance.IsPaused) ? PauseImage : PlayImage;
         }
     }
 }

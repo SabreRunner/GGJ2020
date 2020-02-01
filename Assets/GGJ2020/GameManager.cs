@@ -18,7 +18,12 @@ namespace GGJ2020
         public MouseClickMode mouseClickMode;
         public ContinentBlockController lastGrabbedContinent;
         public ContinentBlockController.ResourceType grabbedResource;
-        public double grabStarted = double.MinValue;
+        private double grabStarted = double.MinValue;
+        private bool isPaused = false;
+        public bool IsPaused
+        {
+            get { return isPaused; }
+        }
 
         private ContinentBlockController Raycast()
         {
@@ -67,6 +72,7 @@ namespace GGJ2020
         private double firstClickFrame = double.MinValue;
         public void Update()
         {
+            if (!IsPaused) {
             if (Input.GetMouseButtonDown(0))
             {
                 if (this.CurrentTimeInMilliseconds < this.firstClickFrame + this.gameConfiguration.doubleClickWindowInMilliseconds)
@@ -95,11 +101,35 @@ namespace GGJ2020
                 if (this.CurrentTimeInMilliseconds > this.firstClickFrame + this.gameConfiguration.doubleClickWindowInMilliseconds)
                 { this.firstClickFrame = double.MinValue; }
             }
+            }
         }
 
         private void Awake()
         {
             this.SetInstance(this);
+        }
+
+        // TODO: Make this method static.
+        public void Pause()
+        {
+            isPaused = true; // TODO: Create an event for pausing the game.
+            Time.timeScale = 0;
+        }
+
+        // TODO: Make this method static.
+        public void Resume()
+        {
+            isPaused = false; // TODO: Create an event for resuming the game.
+            Time.timeScale = 1;
+        }
+
+        public static void Quit()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
         }
     }
 }
