@@ -30,6 +30,7 @@ GameObject:
   - component: {fileID: 5021095156596428806}
   - component: {fileID: 2544223452260914199}
   - component: {fileID: 2740454599345534392}
+  - component: {fileID: 190573281455518447}
   m_Layer: 0
   m_Name: sun_GRP
   m_TagString: Untagged
@@ -93,6 +94,34 @@ MonoBehaviour:
       - m_Target: {fileID: 2544223452260914199}
         m_MethodName: UpdateHealth
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &190573281455518447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5021095156596428825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82291fad8f435814faca5bf312b1acab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respondWhenDisabled: 0
+  gameEvent: {fileID: 11400000, guid: 64237493c1240d242a0642ba28e60e2e, type: 2}
+  eventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2544223452260914199}
+        m_MethodName: StartGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
