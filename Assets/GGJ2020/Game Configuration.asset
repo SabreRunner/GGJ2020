@@ -45,3 +45,4 @@ MonoBehaviour:
   fireRiskTimeStepInSeconds: 5
   doubleClickWindowInMilliseconds: 200
   grabTimeInSeconds: 1
+  healthFailThreshold: 0.09
