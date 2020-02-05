@@ -313,6 +313,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  triggerAtLerpEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2077087503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,6 +344,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2347465048112550601}
+        m_MethodName: StopAllCoroutines
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  trueResponse:
+    m_PersistentCalls:
+      m_Calls: []
+  falseResponse:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &656705727116527215
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,7 +514,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8679245, g: 0.31523672, b: 0.73611104, a: 0.392}
+  m_Color: {r: 1, g: 0.74509805, b: 1, a: 0.039215688}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1313,6 +1333,12 @@ PrefabInstance:
       propertyPath: m_RaycastTarget
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9061512302414166930, guid: c6aa13de4556fe04493cf4e91db8cbbd,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 447377c004fef7a4c8e39dba725894ff,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6aa13de4556fe04493cf4e91db8cbbd, type: 3}
 --- !u!224 &3482617950031631893 stripped
@@ -1338,6 +1364,12 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0.49411765
       objectReference: {fileID: 0}
+    - target: {fileID: 4953634727193125634, guid: 1f7b50c256ee8254fa3280c4221476ca,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ed1e62b5ff0365e4aba19c35133d062b,
+        type: 3}
     - target: {fileID: 5975529369821318658, guid: 1f7b50c256ee8254fa3280c4221476ca,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1466,17 +1498,22 @@ PrefabInstance:
     - target: {fileID: 495367493209090339, guid: 420a82ea8ca5882479df0c38d6264102,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.7830189
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 495367493209090339, guid: 420a82ea8ca5882479df0c38d6264102,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.18836774
+      value: 0.74509805
       objectReference: {fileID: 0}
     - target: {fileID: 495367493209090339, guid: 420a82ea8ca5882479df0c38d6264102,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.6365485
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 495367493209090339, guid: 420a82ea8ca5882479df0c38d6264102,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.039215688
       objectReference: {fileID: 0}
     - target: {fileID: 1779422806764965096, guid: 420a82ea8ca5882479df0c38d6264102,
         type: 3}
