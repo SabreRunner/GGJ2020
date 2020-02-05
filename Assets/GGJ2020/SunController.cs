@@ -30,7 +30,9 @@ namespace GGJ2020
 
             // this.Temp("UpdateHealth", "Average Health: " + this.averageHealth + "; Can end = " + this.canEnd);
 
-            int sunState = (this.averageHealth * (this.sunStates.Length - 1)).Floor();
+            int sunState = (this.averageHealth * (this.sunStates.Length - 1)).RoundToInt();
+
+            // this.Temp("UpdateHealth", "Sun State: " + this.averageHealth * (this.sunStates.Length - 1));
 
             this.sunRenderer.material = this.sunStates[sunState];
 
